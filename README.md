@@ -6,7 +6,7 @@ the online hackathon conducted by Codefest, the annual departmental fest of Comp
 ## KnightMode
 
 * Purushottam Tiwari
-* Madhava Dasri
+* Madhava Dasari
 * Lakshya Singh
 
 ## Peer IO
