@@ -59,7 +59,7 @@
             <v-btn
               class="ma-2"
               color="red"
-              :to="'/courses/'+$route.params.id+'/assignments/'+$route.params.assg"
+              :to="'/courses/'+$route.params.id+'/assignments/'+$route.params.assg+'/allSubmissions'"
             >
               <v-icon>
                 mdi-arrow-left-circle
@@ -108,6 +108,14 @@ export default {
       }
     },
     saveReview () {
+      if (this.submission.submitter._id === this.$auth.user.data._id) {
+        this.$store.dispatch('authStore/snackbar', {
+          show: true,
+          color: 'red',
+          message: 'self review is not allowed'
+        })
+        return
+      }
       if (this.remark) {
         if (this.score <= this.totalPoints && this.score !== '') {
           this.$store.dispatch('reviewStore/createReview', {
@@ -115,7 +123,9 @@ export default {
             data: {
               course: this.$route.params.id,
               assignment: this.$route.params.assg,
-              submission: this.$route.params.sub
+              submission: this.$route.params.sub,
+              remark: this.remark,
+              score: this.score
             }
           })
         } else {

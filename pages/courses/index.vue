@@ -7,7 +7,11 @@
       <v-spacer />
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <nuxt-link v-if="isTeacher" to="/createcourse" style="color: inherit;text-decoration: none;">
+          <nuxt-link
+            v-if="isTeacher"
+            to="/createcourse"
+            style="color: inherit;text-decoration: none;"
+          >
             <v-btn
               class="white black--text"
               v-bind="attrs"
@@ -18,8 +22,52 @@
               <v-icon>mdi-plus</v-icon>
             </v-btn>
           </nuxt-link>
+
+          <v-dialog
+            v-else
+            v-model="dialog"
+            max-width="290"
+          >
+            <template v-slot:activator="scope">
+              <v-btn
+                class="white black--text"
+                v-bind="scope.attrs"
+                fab
+                x-small
+                v-on="scope.on"
+              >
+                <v-icon>mdi-plus</v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title class="headline">
+                Enter Code
+              </v-card-title>
+              <v-divider class="my-3" />
+              <v-card-text>
+                <v-text-field
+                  v-model="code"
+                  label="Code"
+                  counter
+                  maxlength="7"
+                  :rules="[rules.minLength]"
+                  outlined
+                />
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer />
+                <v-btn
+                  color="primary"
+                  text
+                  @click="joinCourse"
+                >
+                  Join
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </template>
-        <span>Add a new course</span>
+        <span>{{ isTeacher ? "Add a new course": "Join course" }}</span>
       </v-tooltip>
     </v-toolbar>
     <v-container>
@@ -55,7 +103,10 @@
               </template>
               <span>edit course</span>
             </v-tooltip>
-            <nuxt-link :to="'/courses/' + course._id " style="color: inherit;text-decoration: none;">
+            <nuxt-link
+              :to="'/courses/' + course._id"
+              style="color: inherit;text-decoration: none;"
+            >
               <v-img
                 src="https://d3gthpli891tsj.cloudfront.net/wp-content/uploads/2019/01/22063215/GATE-Crash-Course.jpg"
                 height="200px"
@@ -63,15 +114,14 @@
               <v-card-title>
                 {{ course.name }}
                 <v-spacer />
-                <v-chip
-                  class="ml-10"
-                  label
-                >
+                <v-chip class="ml-10" label>
                   {{ course.code }}
                 </v-chip>
               </v-card-title>
 
-              <v-card-subtitle>You're the Insructor</v-card-subtitle>
+              <v-card-subtitle v-if="isTeacher">
+                You're the Insructor
+              </v-card-subtitle>
             </nuxt-link>
             <v-card-actions>
               <div>ASSIGNMENTS</div>
@@ -79,9 +129,7 @@
 
               <v-btn icon @click="view(course)">
                 <v-icon>
-                  {{
-                    course.show ? "mdi-chevron-up" : "mdi-chevron-down"
-                  }}
+                  {{ course.show ? "mdi-chevron-up" : "mdi-chevron-down" }}
                 </v-icon>
               </v-btn>
             </v-card-actions>
@@ -110,15 +158,19 @@ export default {
     let url = 'https://arcane-mountain-95630.herokuapp.com/'
     if (this.$auth.user.data.teacher) {
       url += 'teacher/course/'
+      let courses = await this.$axios.$get(url)
+      courses = courses.map((e) => {
+        e.show = false
+        return e
+      })
+      this.courses = courses
     } else {
       url += 'user/course/'
+      const courses = await this.$axios.$get(url)
+      this.courses = courses.courses
     }
-    let courses = await this.$axios.$get(url)
-    courses = courses.map((e) => {
-      e.show = false
-      return e
-    })
-    this.courses = courses
+
+    // console.log(courses)
   },
   data () {
     return {
@@ -134,7 +186,12 @@ export default {
         { text: 'No of submissions', value: 'number_of_submissions' }
       ],
       courses: [],
-      isTeacher: this.$auth.user.data.teacher
+      isTeacher: this.$auth.user.data.teacher,
+      rules: {
+        minLength: value => !!value || 'Required!'
+      },
+      code: '',
+      dialog: false
     }
   },
   methods: {
@@ -146,6 +203,15 @@ export default {
         a.reviewDeadline = new Date(a.reviewDeadline).toLocaleString(['en-US'], { month: 'short', day: '2-digit', year: 'numeric' })
       })
       course.show = !course.show
+    },
+    joinCourse () {
+      const payload = {
+        token: this.$auth.getToken('local'),
+        data: {
+          classCode: this.code
+        }
+      }
+      this.$store.dispatch('courseStore/joinCourse', payload)
     }
   },
   head: {

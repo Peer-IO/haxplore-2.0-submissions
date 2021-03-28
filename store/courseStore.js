@@ -1,27 +1,21 @@
 import axios from 'axios'
 const BASE_URL = 'https://arcane-mountain-95630.herokuapp.com'
 
-export const state = () => ({
-})
-
-export const mutations = {
-}
-
+export const data = () => {}
 export const actions = {
-
-  createReview ({ commit }, payload) {
+  joinCourse ({ commit }, payload) {
     const header = {
       headers: {
         Authorization: payload.token
       }
     }
-    axios.post(`${BASE_URL}/review/`, payload.data, header)
+    axios.put(`${BASE_URL}/user/course/`, payload.data, header)
       .then((data) => {
-        this.$router.push(`/courses/${payload.data.course}/assignments/${payload.data.assignment}/allSubmissions`)
+        window.location.reload()
         commit('authStore/snackbar', {
           show: true,
           color: 'green',
-          message: 'Review submitted Succesfully !'
+          message: 'Course joined successfully !'
         }, { root: true })
       }).catch((err) => {
         commit('authStore/snackbar', {
@@ -31,8 +25,4 @@ export const actions = {
         }, { root: true })
       })
   }
-
-}
-
-export const getters = {
 }
