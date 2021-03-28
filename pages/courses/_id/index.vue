@@ -118,36 +118,38 @@
       </v-col>
     </v-row>
     <v-container>
-    <div
-      v-for="(assg, i) in course.assignments"
-      :key="i"
-    >
-      <v-row style="margin-top: 4vh">
-        <v-col cols="12" lg="10" md="11" style="margin: auto; padding: 0">
-          <v-card>
-            <v-row>
-              <v-col cols="1" class="hidden-xs-only">
-                <v-img
-                  src="https://static.thenounproject.com/png/2038384-200.png"
-                  max-height="50"
-                  max-width="50"
-                  class="img"
-                />
-              </v-col>
-              <v-col cols="11" class="hidden-xs-only">
-                <v-card-title>{{ assg.title }}</v-card-title>
-              </v-col>
-              <v-col class="d-sm-none">
-                <h4 style="margin-left: 17px">{{ assg.title }}</h4>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-      </v-row>
-    </div>
+      <div
+        v-for="(assg, i) in course.assignments"
+        :key="i"
+      >
+        <v-row style="margin-top: 4vh">
+          <v-col cols="12" lg="10" md="11" style="margin: auto; padding: 0">
+            <v-card :to="'/courses/'+$route.params.id+'/assignments/'+assg._id">
+              <v-row>
+                <v-col cols="1" class="hidden-xs-only">
+                  <v-img
+                    src="https://static.thenounproject.com/png/2038384-200.png"
+                    max-height="50"
+                    max-width="50"
+                    class="img"
+                  />
+                </v-col>
+                <v-col cols="11" class="hidden-xs-only">
+                  <v-card-title>{{ assg.title }}</v-card-title>
+                </v-col>
+                <v-col class="d-sm-none">
+                  <h4 style="margin-left: 17px">
+                    {{ assg.title }}
+                  </h4>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+        </v-row>
+      </div>
     </v-container>
-    <div  v-if="false" class="text-xs-center mt-3 ml-10">
-        No assignments in this course yet !
+    <div v-if="false" class="text-xs-center mt-3 ml-10">
+      No assignments in this course yet !
     </div>
     <v-speed-dial
       v-if="teacher"
@@ -237,7 +239,7 @@ export default {
       `https://arcane-mountain-95630.herokuapp.com/teacher/course/${this.$route.params.id}`,
       header
     )
-    console.log(course)
+    // console.log(course)
     this.course = course
     this.instructor = course.instructor
   },
@@ -246,10 +248,10 @@ export default {
     fab: false,
     course: {},
     instructor: {},
-    assignments : [
+    assignments: [
     ],
-    buttonMessageT: "Delete Course",
-    buttonMessageS: "Leave Course",
+    buttonMessageT: 'Delete Course',
+    buttonMessageS: 'Leave Course'
   }),
   computed: {
     noAssg () {
