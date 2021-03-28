@@ -25,26 +25,12 @@
                         <v-btn
                           class="mx-2"
                           fab
-                          color="blue"
-                          outlined
-                          style="opacity: 0.8"
-                          @click="facebook"
-                        >
-                          <v-icon large>
-                            mdi-facebook
-                          </v-icon>
-                        </v-btn>
-                        <v-btn
-                          class="mx-2"
-                          fab
-                          color="white"
+                          color="red"
                           outlined
                           style="opacity: 0.8"
                           @click="google"
                         >
-                          <v-icon large>
-                            mdi-google-plus
-                          </v-icon>
+                          <v-icon large> mdi-google-plus </v-icon>
                         </v-btn>
                         <v-btn
                           class="mx-2"
@@ -53,9 +39,7 @@
                           outlined
                           @click="github"
                         >
-                          <v-icon color="white" large>
-                            mdi-github
-                          </v-icon>
+                          <v-icon color="white" large> mdi-github </v-icon>
                         </v-btn>
                       </div>
                       <h4 class="text-center mt-4" />
@@ -92,19 +76,13 @@
                       </div>
                     </v-card-text>
                     <div class="text-center mt-3">
-                      <v-btn rounded dark @click="ValidSignin">
-                        SIGN IN
-                      </v-btn>
+                      <v-btn rounded dark @click="ValidSignin"> SIGN IN </v-btn>
                     </div>
                   </v-col>
                   <v-col cols="12" md="4">
                     <v-card-text class="white--text mt-12">
-                      <h1 class="text-center display-1">
-                        Hello, friends!
-                      </h1>
-                      <h3 class="text-center">
-                        Enter Your details
-                      </h3>
+                      <h1 class="text-center display-1">Hello, friends!</h1>
+                      <h3 class="text-center">Enter Your details</h3>
                     </v-card-text>
                     <div class="text-center">
                       <v-btn rounded outlined dark @click="step++">
@@ -127,26 +105,12 @@
                         <v-btn
                           class="mx-2"
                           fab
-                          color="blue"
-                          outlined
-                          style="opacity: 0.8"
-                          @click="facebook"
-                        >
-                          <v-icon large>
-                            mdi-facebook
-                          </v-icon>
-                        </v-btn>
-                        <v-btn
-                          class="mx-2"
-                          fab
                           color="white"
                           outlined
                           style="opacity: 0.8"
                           @click="google"
                         >
-                          <v-icon large>
-                            mdi-google-plus
-                          </v-icon>
+                          <v-icon large> mdi-google-plus </v-icon>
                         </v-btn>
                         <v-btn
                           class="mx-2"
@@ -155,9 +119,7 @@
                           outlined
                           @click="github"
                         >
-                          <v-icon large>
-                            mdi-github
-                          </v-icon>
+                          <v-icon large> mdi-github </v-icon>
                         </v-btn>
                       </div>
                       <v-form>
@@ -257,12 +219,8 @@
                   </v-col>
                   <v-col cols="12" md="4">
                     <v-card-text class="white--text mt-12">
-                      <h1 class="text-center display-1">
-                        Welcome Back!
-                      </h1>
-                      <h3 class="text-center">
-                        Please Sign Up to Continue
-                      </h3>
+                      <h1 class="text-center display-1">Welcome Back!</h1>
+                      <h3 class="text-center">Please Sign Up to Continue</h3>
                     </v-card-text>
                     <div class="text-center">
                       <v-btn rounded outlined dark @click="step--">
@@ -287,28 +245,22 @@
     </v-snackbar>
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
-        <v-card-title class="headline">
-          Verify your Email
-        </v-card-title>
+        <v-card-title class="headline"> Verify your Email </v-card-title>
 
         <v-card-text>
-          A Verification email is send to you , click on the link provided in
-          it to verify your email
+          A Verification email is send to you , click on the link provided in it
+          to verify your email
         </v-card-text>
 
         <v-card-actions>
           <v-spacer />
-          <v-btn color="green darken-1" text @click="toSignin">
-            OK
-          </v-btn>
+          <v-btn color="green darken-1" text @click="toSignin"> OK </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-dialog v-model="signIndialog" max-width="290">
       <v-card>
-        <v-card-title class="headline">
-          Verify your Email
-        </v-card-title>
+        <v-card-title class="headline"> Verify your Email </v-card-title>
         <v-card-text>
           Please verify you email to continue , click on the verify buttton to
           send you a verification email
@@ -332,7 +284,7 @@ import firebase, { auth } from 'firebase/app'
 export default {
   middleware: ['auth'],
   auth: 'guest',
-  data () {
+  data() {
     return {
       step: 1, // window change on clicking signup or signin
       items: ['IIT BHU', 'IIT Bombay', 'IIT Madras', 'IIT Delhi'],
@@ -360,24 +312,24 @@ export default {
       color: 'error', // snackbar
       mailPattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       rules: {
-        minlength: v => !!v || 'Required!',
-        emailRule: v => this.mailPattern.test(v) || 'Invalid email!',
-        rollRule: v =>
+        minlength: (v) => !!v || 'Required!',
+        emailRule: (v) => this.mailPattern.test(v) || 'Invalid email!',
+        rollRule: (v) =>
           v.length < 12 || 'Roll number must be less than 12 digits',
-        psmin: v =>
-          v.length >= 8 || 'Password should be atleast 8 characters '
-      } // basic check for fields
+        psmin: (v) =>
+          v.length >= 8 || 'Password should be atleast 8 characters ',
+      }, // basic check for fields
     }
   },
   methods: {
-    displaySnackbar (message, color) {
+    displaySnackbar(message, color) {
       this.loading = false
       this.snackbarMessage = message
       this.color = color || 'error'
       this.showSnackbar = true
     },
     // to restrict the user  to enter only numbers in roll_number field
-    isNumber (evt) {
+    isNumber(evt) {
       evt = evt || window.event
       const charCode = evt.which ? evt.which : evt.keyCode
       if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -386,7 +338,7 @@ export default {
         return true
       }
     },
-    ValidSignin () {
+    ValidSignin() {
       if (!this.socialAuth) {
         // checks email first then password
         if (this.email.length > 0 && this.mailPattern.test(this.email)) {
@@ -431,7 +383,7 @@ export default {
         this.login()
       }
     },
-    ValidSignup () {
+    ValidSignup() {
       this.loading = true
       if (!this.socialAuth) {
         // checks the fields accordingly to the form if first is ok it goes onto second
@@ -499,19 +451,15 @@ export default {
         this.socialSignUp()
       }
     },
-    google () {
+    google() {
       const provider = new auth.GoogleAuthProvider()
       this.social(provider)
     },
-    facebook () {
-      const provider = new auth.FacebookAuthProvider()
-      this.social(provider)
-    },
-    github () {
+    github() {
       const provider = new auth.GithubAuthProvider()
       this.social(provider)
     },
-    social (provider) {
+    social(provider) {
       auth()
         .signInWithPopup(provider)
         .then((data) => {
@@ -537,7 +485,7 @@ export default {
           this.displaySnackbar(err.message)
         })
     },
-    socialSignUp () {
+    socialSignUp() {
       this.loading = true
       // check all the fields
       if (this.gender && this.gender.length > 0) {
@@ -555,8 +503,8 @@ export default {
         this.displaySnackbar('Required Gender', 'error')
       }
     },
-    register () {
-      this.$store.dispatch('authStore/SignUp', {
+    async register() {
+      const result = await this.$store.dispatch('authStore/SignUp', {
         first_name: this.FirstName,
         last_name: this.LastName,
         email: this.Email,
@@ -565,7 +513,7 @@ export default {
         nationality: 'Indian',
         gender: this.gender,
         roll_number: this.Rollnumber,
-        idToken: this.idToken
+        idToken: this.idToken,
       })
       if (this.socialAuth) {
         // to signin page
@@ -574,18 +522,18 @@ export default {
       }
       this.loading = false
     },
-    login () {
+    login() {
       this.loading = true
       this.$auth
         .loginWith('local', {
           data: {
-            idToken: this.idToken
-          }
+            idToken: this.idToken,
+          },
         })
         .then(() => {
           this.loading = false
           this.$store.dispatch('teacherStore/getCourses', {
-            token: this.$auth.getToken('local')
+            token: this.$auth.getToken('local'),
           })
         })
         .catch((err) => {
@@ -599,7 +547,7 @@ export default {
           }
         })
     },
-    sendVerificationEmail () {
+    sendVerificationEmail() {
       const user = firebase.auth().currentUser
       user
         .sendEmailVerification()
@@ -611,23 +559,23 @@ export default {
           this.displaySnackbar(err.message)
         })
     },
-    toSignin () {
+    toSignin() {
       this.dialog = false
       this.$router.push('/login')
-    }
-  }
+    },
+  },
 }
 </script>
 <style scoped>
 .sin {
-  background-image: url("https://images.pexels.com/photos/735911/pexels-photo-735911.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-image: url('https://images.pexels.com/photos/735911/pexels-photo-735911.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0.8;
 }
 .cin {
-  background-image: url("https://images.pexels.com/photos/943096/pexels-photo-943096.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
+  background-image: url('https://images.pexels.com/photos/943096/pexels-photo-943096.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

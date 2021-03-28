@@ -1,5 +1,5 @@
 {
-  "name": "P2P",
+  "name": "peerio",
   "version": "2.0.0",
   "private": true,
   "scripts": {
@@ -15,16 +15,16 @@
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.0",
     "firebase": "^7.20.0",
-    "nuxt": "^2.14.0"
+    "nuxt": "^2.15.0"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config": "^3.1.0",
-    "@nuxtjs/eslint-module": "^2.0.0",
-    "@nuxtjs/vuetify": "^1.11.2",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/vuetify": "^1.11.3",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.5.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-nuxt": "^1.0.0",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^7.0.0"
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1"
   }
 }
