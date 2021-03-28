@@ -40,7 +40,7 @@ With above functinalities teachers can review the works of students, and provide
 
 ### Screenshots/Demo Video
 
-_Add some screens and a demo_
+Drive Link for [demo video](https://drive.google.com/file/d/15PzEau8MiqYrKerO-qQP221lq4zbpLBr/view?usp=sharing).
 
 ### Usage
 
@@ -71,4 +71,4 @@ none
 
 ### AWS Services Used
 
-None
+Our backend is deployed on *AWS ec2 cloud instance*, through Heroku.
