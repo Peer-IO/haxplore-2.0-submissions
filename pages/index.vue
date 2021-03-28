@@ -28,7 +28,10 @@
       </div>
     </v-lazy>
     <v-container>
-      <v-timeline>
+      <v-timeline
+        dark
+        align-top
+      >
         <v-timeline-item
           v-for="(content, i) in process"
           :key="i"
@@ -36,10 +39,10 @@
           small
         >
           <div class="py-4">
-            <h2 :class="`headline font-weight-light mb-4 ${content.color}--text`">
+            <h2 :class="`text-h6 font-weight-light mb-4 ${content.color}--text`">
               {{ content.title }}
             </h2>
-            <div>
+            <div class="text-body-1">
               {{ content.body }}
             </div>
           </div>
@@ -95,34 +98,30 @@
           v-for="(review, i) in reviews"
           :key="i"
         >
-          <v-sheet height="100%" color="transparent">
-            <v-row class="fill-height" align="center" justify="center">
-              <v-card
-                color="pink"
-                dark
-                max-width="420"
-                max-height="300"
+          <v-sheet height="100%" color="transparent" class="d-flex justify-center align-center">
+            <v-card
+              color="pink"
+              dark
+              max-width="450"
+              height="200"
+            >
+              <v-card-title
+                class="headline"
               >
-                <div class="d-flex flex-no-wrap justify-space-between fill-height align-center">
-                  <div>
-                    <v-card-title
-                      class="headline"
-                      v-text="review.name"
-                    />
-
-                    <v-card-subtitle v-text="review.text" />
-                  </div>
-
-                  <v-avatar
-                    class="ma-3"
-                    size="150"
-                    tile
-                  >
-                    <v-img :src="review.image" />
-                  </v-avatar>
-                </div>
-              </v-card>
-            </v-row>
+                <span class="mt-n4">
+                  {{ review.name }}
+                </span>
+                <v-avatar
+                  class="ml-auto mt-n14"
+                  size="125"
+                >
+                  <v-img :src="review.image" />
+                </v-avatar>
+              </v-card-title>
+              <v-card-text class="text-body-2">
+                {{ review.text }}
+              </v-card-text>
+            </v-card>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
@@ -145,7 +144,7 @@ export default {
   data () {
     return {
       imgSrc: require('../assets/images/study.webp'),
-      background: require('../assets/images/background.jpg'),
+      background: require('../assets/images/background.webp'),
       student: require('../assets/images/student.jpg')
     }
   },
