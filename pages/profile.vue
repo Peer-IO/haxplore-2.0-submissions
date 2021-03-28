@@ -1,9 +1,11 @@
 <template>
-  <v-container justify-space-around>
+  <main
+    class="tw-container tw-mx-auto tw-h-full tw-flex tw-items-center tw-my-4"
+  >
     <v-row>
       <v-col cols="12" sm="12" md="5" align="center">
         <client-only>
-          <v-avatar color="white" size="310">
+          <v-avatar color="white" size="280">
             <v-avatar v-if="imageurl !== 'null'" size="290">
               <v-img :src="imageurl" />
             </v-avatar>
@@ -12,19 +14,14 @@
             </v-icon>
           </v-avatar>
         </client-only>
-        <v-btn
-          color="white black--text"
-          @click.stop="dialogImg = true"
-        >
+        <v-btn color="white black--text" @click.stop="dialogImg = true">
           Edit
         </v-btn>
         <v-dialog v-model="dialogImg" overlay-color="white" max-width="390">
           <v-card>
-            <v-card-title class="headline">
-              Edit Image
-            </v-card-title>
+            <v-card-title class="headline"> Edit Image </v-card-title>
             <v-card-text class="text-center">
-              <br>
+              <br />
               <v-file-input
                 v-model="file"
                 accept="image/*"
@@ -36,16 +33,12 @@
                 required
                 @change="previewImage"
               />
-              <img v-if="file" :src="imageurl" height="150px" width="150px">
+              <img v-if="file" :src="imageurl" height="150px" width="150px" />
             </v-card-text>
             <v-card-actions>
-              <v-btn color="white" text @click="removeImage">
-                Cancel
-              </v-btn>
+              <v-btn color="white" text @click="removeImage"> Cancel </v-btn>
               <v-spacer />
-              <v-btn color="white" text @click="EditImage">
-                Save
-              </v-btn>
+              <v-btn color="white" text @click="EditImage"> Save </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -81,7 +74,7 @@
                           Edit Name
                         </v-card-title>
                         <v-card-text>
-                          <br>
+                          <br />
                           <v-text-field
                             v-model="firstName"
                             label="First Name"
@@ -100,19 +93,11 @@
                           />
                         </v-card-text>
                         <v-card-actions>
-                          <v-btn
-                            color="white"
-                            text
-                            @click="dialog = false"
-                          >
+                          <v-btn color="white" text @click="dialog = false">
                             Cancel
                           </v-btn>
                           <v-spacer />
-                          <v-btn
-                            color="white"
-                            text
-                            @click="EditName"
-                          >
+                          <v-btn color="white" text @click="EditName">
                             Save
                           </v-btn>
                         </v-card-actions>
@@ -207,9 +192,7 @@
                   color="white black--text"
                   to="/ResetPassword"
                 >
-                  <v-icon left>
-                    mdi-lock-reset
-                  </v-icon>Change Password
+                  <v-icon left> mdi-lock-reset </v-icon>Change Password
                 </v-btn>
               </v-col>
             </v-row>
@@ -217,13 +200,13 @@
         </v-form>
       </v-col>
     </v-row>
-  </v-container>
+  </main>
 </template>
 
 <script>
 export default {
   middleware: ['auth'],
-  data () {
+  data() {
     return {
       dialog: false,
       dialogImg: false,
@@ -231,11 +214,11 @@ export default {
       imageurl: null,
       firstName: '',
       lastName: '',
-      provider: null
+      provider: null,
     }
   },
   computed: {
-    user () {
+    user() {
       if (this.$store.state.auth.loggedIn) {
         const userdata = this.$auth.user.data
         return userdata
@@ -243,31 +226,31 @@ export default {
         return null
       }
     },
-    name () {
+    name() {
       const userdata = this.user
       const name = userdata.first_name + '  ' + userdata.last_name
       return name
     },
-    role () {
+    role() {
       return this.user.teacher ? 'Instructor' : 'Student'
     },
-    joinedDate () {
+    joinedDate() {
       const date = new Date(this.user.createdAt)
       return date.toLocaleString(['en-US'], {
         month: 'short',
         day: '2-digit',
         year: 'numeric',
         hour: '2-digit',
-        minute: '2-digit'
+        minute: '2-digit',
       })
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.imageurl = localStorage.getItem('photoUrl')
     this.provider = localStorage.getItem('provider')
   },
   methods: {
-    EditName () {
+    EditName() {
       if (this.name !== '') {
         this.dialog = false
         const updatedUser = this.user
@@ -276,12 +259,12 @@ export default {
         const token = this.$auth.getToken('local')
         this.$store.dispatch('authStore/editUser', {
           updatedUser,
-          token
+          token,
         })
       } else {
       }
     },
-    previewImage () {
+    previewImage() {
       if (this.file) {
         const fileReader = new FileReader()
         fileReader.addEventListener('load', () => {
@@ -290,32 +273,31 @@ export default {
         fileReader.readAsDataURL(this.file)
       }
     },
-    EditImage () {
+    EditImage() {
       if (this.file) {
         this.dialogImg = false
 
         this.$store.dispatch('authStore/editProfileImage', {
-          file: this.file
+          file: this.file,
         })
         this.file = null
       } else {
       }
     },
-    set () {
+    set() {
       this.dialog = true
       this.firstName = this.user.first_name
       this.lastName = this.user.last_name
     },
-    removeImage () {
+    removeImage() {
       this.file = null
       this.dialogImg = false
-    }
+    },
   },
   head: {
-    title : 'Profile'
-  }
+    title: 'Profile',
+  },
 }
 </script>
 
-<style >
-</style>
+<style></style>

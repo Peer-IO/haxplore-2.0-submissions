@@ -20,7 +20,7 @@
         How Does it Work ?
       </div>
     </v-lazy>
-    <v-container>
+    <div class="tw-container tw-mx-auto tw-px-4 tw-my-8">
       <v-timeline dark align-top>
         <v-timeline-item
           v-for="(content, i) in process"
@@ -30,42 +30,49 @@
         >
           <div class="py-4">
             <h2
-              :class="`text-h6 font-weight-light mb-4 ${content.color}--text`"
+              :class="`tw-text-lg md:tw-text-2xl tw-font-semibold mb-4 ${content.color}--text`"
             >
               {{ content.title }}
             </h2>
-            <div class="text-body-1">
+            <p class="tw-text-sm md:tw-text-base tw-text-justify">
               {{ content.body }}
-            </div>
+            </p>
           </div>
         </v-timeline-item>
       </v-timeline>
-    </v-container>
+    </div>
     <v-lazy
       :options="{
         threshold: 0.6,
       }"
       transition="scroll-y-transition"
     >
-      <div class="mt-5 text-h4 text-md-h3 white--text text-center">
+      <div class="tw-mt-20 text-h4 text-md-h3 white--text text-center">
         Build on academic research
       </div>
     </v-lazy>
     <v-container>
-      <v-row align="center" justify="center" class="my-10">
-        <v-col cols="12" sm="12" md="5">
-          <span class="text-body-1">
-            P2P is not just a tool that can provide you with insights into your
-            students’ performance and save you time. It also creates a much
-            better learning experience for your students. Don’t believe us?
-            There’s a bunch of studies that actually proves that it can increase
-            learning up to 30%!
-          </span>
-        </v-col>
-        <v-col cols="12" sm="12" md="5" align="center">
-          <v-img aspect-ratio height="400" :src="student" />
-        </v-col>
-      </v-row>
+      <div
+        class="tw-flex tw-flex-col md:tw-flex-row tw-justify-center tw-items-center md:tw-justify-evenly tw-my-6"
+      >
+        <p
+          class="text-body-1 tw-container tw-mx-auto tw-text-justify tw-block tw-px-4"
+        >
+          Peer IO is not just a tool that can provide you with insights into your
+          students’ performance and save you time. It also creates a much better
+          learning experience for your students. Don’t believe us? There’s a
+          bunch of studies that actually proves that it can increase learning up
+          to 30%!
+        </p>
+        <div class="tw-max-w-md">
+          <img
+            alt="thinking"
+            load="lazy"
+            :src="student"
+            class="tw-object-cover"
+          />
+        </div>
+      </div>
     </v-container>
     <v-lazy
       :options="{

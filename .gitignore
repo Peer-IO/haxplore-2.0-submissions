@@ -117,3 +117,5 @@ sw.*
 
 # TernJS port file
 .tern-port
+
+.vercel

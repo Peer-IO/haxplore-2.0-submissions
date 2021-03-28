@@ -6,7 +6,7 @@
         md="11"
         style="
           background: url(https://gstatic.com/classroom/themes/img_code.jpg);
-          border-radius: 1vw;
+          border-radius: 0 0 1vw 1vw;
           margin: auto;
         "
       >
@@ -21,7 +21,9 @@
           "
         >
           <v-card-title class="white--text">
-            <span class="headline">{{ course.name }}</span>
+            <p class="tw-font-bold tw-text-4xl tw-tracking-wider">
+              {{ course.name }}
+            </p>
 
             <v-spacer />
 
@@ -111,34 +113,31 @@
         </div>
       </v-col>
     </v-row>
-    <v-row
-      v-for="(assg, i) in course.assignments"
-      :key="i"
-      style="margin-top: 4vh"
-    >
-      <v-col cols="12" lg="10" md="11" style="margin: auto; padding: 0">
-        <v-card :to="$route.fullPath + '/assignments/' + assg._id">
-          <v-row>
-            <v-col cols="1" class="hidden-xs-only">
-              <v-img
-                src="https://static.thenounproject.com/png/2038384-200.png"
-                max-height="50"
-                max-width="50"
-                class="img"
-              />
-            </v-col>
-            <v-col cols="11" class="hidden-xs-only">
-              <v-card-title>{{ assg.title }}</v-card-title>
-            </v-col>
-            <v-col class="d-sm-none">
-              <h4 style="margin-left: 17px">
-                {{ assg.title }}
-              </h4>
-            </v-col>
-          </v-row>
-        </v-card>
-      </v-col>
-    </v-row>
+    <main class="tw-mt-10 tw-container tw-mx-auto">
+      <div
+        v-for="(assg, i) in course.assignments"
+        :key="i"
+        class="tw-mt-6 tw-rounded-md"
+      >
+        <nuxt-link
+          :to="$route.fullPath + '/assignments/' + assg._id"
+          class="tw-flex tw-bg-white tw-items-center tw-rounded-md tw-py-2 tw-px-4"
+        >
+          <div>
+            <img
+              src="https://static.thenounproject.com/png/2038384-200.png"
+              height="50"
+              width="50"
+            />
+          </div>
+          <h4
+            class="tw-flex-grow tw-truncate tw-ml-5 tw-font-semibold tw-text-xl tw-text-gray-600"
+          >
+            {{ assg.title }}
+          </h4>
+        </nuxt-link>
+      </div>
+    </main>
     <div v-if="false" class="text-xs-center mt-3 ml-10">
       No assignments in this course yet !
     </div>
@@ -213,7 +212,6 @@ export default {
       `https://arcane-mountain-95630.herokuapp.com/teacher/course/${this.$route.params.id}`,
       header
     )
-    console.log(course)
     this.course = course
     this.instructor = course.instructor
   },
@@ -243,11 +241,11 @@ export default {
         token: this.$auth.getToken('local'),
         id: this.$route.params.id,
       })
-    }
+    },
   },
   head: {
-    title : 'Course | Details '
-  }
+    title: 'Course | Details ',
+  },
 }
 </script>
 <style scoped>

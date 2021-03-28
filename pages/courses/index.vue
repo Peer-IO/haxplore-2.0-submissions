@@ -93,9 +93,11 @@
               :to="'/courses/' + course._id"
               style="color: inherit; text-decoration: none"
             >
-              <v-img
+              <img
                 src="https://d3gthpli891tsj.cloudfront.net/wp-content/uploads/2019/01/22063215/GATE-Crash-Course.jpg"
                 height="200px"
+                load="lazy"
+                alt="course thumbnail"
               />
               <v-card-title>
                 {{ course.name }}

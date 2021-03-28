@@ -2,7 +2,7 @@
   <v-footer light>
     <v-row justify="space-between">
       <v-col class="text-center  grey--text">
-        &copy;2020 - {{ new Date().getFullYear() }} <strong>Knightmode</strong>
+        &copy;2021 - {{ new Date().getFullYear() }} <strong>Knightmode</strong>
       </v-col>
       <v-col class="text-center">
         Peer IO is made with 🍕, ☕ and 💻 ❤️

@@ -80,7 +80,7 @@
                       <h1 class="text-center display-1">Welcome Back!</h1>
                       <h3 class="text-center">Please Sign In to Continue</h3>
                     </v-card-text>
-                    <div class="text-center mt-2">
+                    <div class="text-center tw-my-2">
                       <v-btn @click="step++"> SIGN UP </v-btn>
                     </div>
                   </v-col>
@@ -160,7 +160,7 @@
                           name="Rollnumber"
                           prepend-icon="mdi-account"
                           type="text"
-                          :rules="[rules.rollRule,rules.minlength]"
+                          :rules="[rules.rollRule, rules.minlength]"
                           :maxlength="11"
                           required
                           color="primary"
@@ -556,8 +556,8 @@ export default {
     },
   },
   head: {
-    title : 'Login'
-  }
+    title: 'Login',
+  },
 }
 </script>
 <style scoped>

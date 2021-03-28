@@ -5,41 +5,39 @@
         <v-card>
           <v-card-title> Review </v-card-title>
           <v-divider />
-          <v-card-text align="center">
-            <v-form justify="center">
-              <v-card-subtitle>
-                Attachment
-                <v-chip
-                  class="ma-1"
-                  color="white black--text"
-                  :href="link"
-                  target="_blank"
-                >
-                  link
-                </v-chip>
-              </v-card-subtitle>
-              <v-row>
-                <v-col cols="12" lg="8">
-                  <v-textarea v-model="remark" label="Remark" outlined />
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12" lg="6">
-                  <v-text-field
-                    v-model.number="score"
-                    outlined
-                    :placeholder="'out of  ' + totalPoints"
-                    label="score"
-                    type="number"
-                    :maxlength="5"
-                    required
-                    color="primary"
-                    @keypress="isNumber($event)"
-                  />
-                </v-col>
-              </v-row>
-            </v-form>
-          </v-card-text>
+          <div class="tw-flex tw-justify-center tw-py-4 tw-items-center">
+            Attachment :
+            <v-chip
+              class="ma-1"
+              color="white black--text"
+              :href="link"
+              target="_blank"
+            >
+              Link
+            </v-chip>
+          </div>
+          <v-form class="tw-flex tw-flex-col tw-justify-evenly tw-py-4 tw-px-4">
+            <v-row>
+              <v-col cols="12" lg="8">
+                <v-textarea v-model="remark" label="Remark" outlined />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" lg="6">
+                <v-text-field
+                  v-model.number="score"
+                  outlined
+                  :placeholder="'out of  ' + totalPoints"
+                  label="score"
+                  type="number"
+                  :maxlength="5"
+                  required
+                  color="primary"
+                  @keypress="isNumber($event)"
+                />
+              </v-col>
+            </v-row>
+          </v-form>
           <v-card-actions>
             <v-spacer />
             <v-btn color="info" class="ma-2" @click="saveReview">
@@ -70,6 +68,9 @@
 <script>
 export default {
   middleware: ['auth'],
+  head: {
+    title: 'Review',
+  },
   async fetch() {
     const header = {
       headers: {

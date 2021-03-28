@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <main class="tw-container py-4 tw-mx-auto tw-max-w-3xl xl:tw-max-w-4xl">
     <v-card>
       <v-card-title>
         {{ assignment.title }}
@@ -10,25 +10,13 @@
       </v-card-title>
       <v-card-subtitle>
         <div>
-          <v-chip
-            class="ma-2"
-            color="white"
-            outlined
-          >
-            <v-icon left>
-              mdi-clock-outline
-            </v-icon>
+          <v-chip class="tw-my-2" color="white" outlined>
+            <v-icon left> mdi-clock-outline </v-icon>
             Submission Deadline {{ assignment.submissionDeadline }}
           </v-chip>
         </div>
-        <v-chip
-          class="ma-2"
-          color="white"
-          outlined
-        >
-          <v-icon left>
-            mdi-clock-outline
-          </v-icon>
+        <v-chip class="tw-my-2" color="white" outlined>
+          <v-icon left> mdi-clock-outline </v-icon>
           Review Deadline {{ assignment.reviewDeadline }}
         </v-chip>
       </v-card-subtitle>
@@ -51,20 +39,20 @@
             link {{ i }}
           </v-chip>
         </v-chip-group>
-        <v-row v-if="!teacher" class="mt-5">
+        <v-row v-if="!teacher" class="tw-my-2">
           <v-col cols="12" lg="6" md="6">
-            <v-card-subtitle
-              v-if="submitted"
-            >
-              <v-chip
-                label
-                :href="link"
-                target="_blank"
-                color="primary"
-              >
+            <v-card-subtitle v-if="submitted">
+              <v-chip label :href="link" target="_blank" color="primary">
                 Your Submission
               </v-chip>
-              submitted at : {{ new Date(submission.updatedAt).toLocaleString(['en-US'], { month: 'short', day: '2-digit', year: 'numeric' }) }}
+              submitted at :
+              {{
+                new Date(submission.updatedAt).toLocaleString(['en-US'], {
+                  month: 'short',
+                  day: '2-digit',
+                  year: 'numeric',
+                })
+              }}
             </v-card-subtitle>
             <v-file-input
               v-else
@@ -75,7 +63,11 @@
             />
           </v-col>
           <v-col cols="12" lg="3" md="3">
-            <v-btn v-if="!submitted" color="white black--text" @click="submitAssignment">
+            <v-btn
+              v-if="!submitted"
+              color="white black--text"
+              @click="submitAssignment"
+            >
               submit
             </v-btn>
           </v-col>
@@ -86,46 +78,64 @@
         <v-btn
           color="white black--text"
           :to="this.$route.fullPath + '/allSubmissions'"
-          class="ma-2"
+          class="tw-my-2"
         >
           View Submissions
         </v-btn>
         <v-btn
           color="white black--text"
           :to="this.$route.fullPath + '/reviewedSubmissions'"
-          class="ma-2"
+          class="tw-my-2"
         >
           View Reviews
         </v-btn>
       </v-card-actions>
-      <v-card-actions v-if="(!teacher)&submitted">
+      <v-card-actions v-if="!teacher & submitted">
         <v-spacer />
-        <v-btn v-if="!canReview" class="ma-2" color="white black--text" @click.stop="updateDialog = true">
+        <v-btn
+          v-if="!canReview"
+          class="tw-my-2"
+          color="white black--text"
+          @click.stop="updateDialog = true"
+        >
           Updated
         </v-btn>
         <v-btn
           v-if="!canReview"
           color="white black--text"
-          class="ma-2"
+          class="tw-my-2"
           @click="deleteSubmission"
         >
           Delete
         </v-btn>
-        <v-btn v-if="!canViewFeedBack" class="ma-2" color="white black--text" :to="this.$route.fullPath + '/allSubmissions'">
+        <v-btn
+          v-if="!canViewFeedBack"
+          class="tw-my-2"
+          color="white black--text"
+          :to="this.$route.fullPath + '/allSubmissions'"
+        >
           Start Reviewing
         </v-btn>
-        <v-btn v-else class="ma-2" color="white black--text" :to="this.$route.fullPath + '/submission/' + this.SubmissionId +'/feedback'">
+        <v-btn
+          v-else
+          class="tw-my-2"
+          color="white black--text"
+          :to="
+            this.$route.fullPath +
+            '/submission/' +
+            this.SubmissionId +
+            '/feedback'
+          "
+        >
           View FeedBack
         </v-btn>
       </v-card-actions>
     </v-card>
     <v-dialog v-model="updateDialog" overlay-color="white" max-width="390">
       <v-card>
-        <v-card-title class="headline">
-          Update Submission
-        </v-card-title>
+        <v-card-title class="headline"> Update Submission </v-card-title>
         <v-card-text class="text-center">
-          <br>
+          <br />
           <v-file-input
             v-model="file"
             placeholder="select file"
@@ -140,9 +150,7 @@
             Cancel
           </v-btn>
           <v-spacer />
-          <v-btn color="white" text @click="updateSubmission">
-            Update
-          </v-btn>
+          <v-btn color="white" text @click="updateSubmission"> Update </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -160,12 +168,8 @@
     >
       <template v-slot:activator>
         <v-btn v-model="fab" color="blue darken-2" dark fab large>
-          <v-icon v-if="fab">
-            mdi-close
-          </v-icon>
-          <v-icon v-else>
-            mdi-account-circle
-          </v-icon>
+          <v-icon v-if="fab"> mdi-close </v-icon>
+          <v-icon v-else> mdi-account-circle </v-icon>
         </v-btn>
       </template>
       <v-btn fab dark small color="green" :to="this.$route.fullPath + '/edit'">
@@ -177,9 +181,7 @@
     </v-speed-dial>
     <v-dialog v-model="deleteConfirm" max-width="290">
       <v-card>
-        <v-card-title class="headline">
-          Confirm
-        </v-card-title>
+        <v-card-title class="headline"> Confirm </v-card-title>
         <v-card-text>
           Are you sure to delete this Assignment ? All the submisssions related
           to this assignment (if any) will also be deleted automatically .
@@ -195,28 +197,28 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-container>
+  </main>
 </template>
 <script>
 export default {
   middleware: ['auth'],
-  async fetch () {
+  async fetch() {
     const url = 'https://arcane-mountain-95630.herokuapp.com'
     const header = {
       headers: {
-        Authorization: this.$auth.getToken('local')
-      }
+        Authorization: this.$auth.getToken('local'),
+      },
     }
     const assignment = await this.$axios.$get(
-        `${url}/assignment/${this.$route.params.assg}`,
-        header
+      `${url}/assignment/${this.$route.params.assg}`,
+      header
     )
     this.assignment = assignment
     if (!this.$auth.user.data.teacher) {
       header.params = {
         courseId: this.$route.params.id,
         assignmentId: this.$route.params.assg,
-        userSpecific: 'T'
+        userSpecific: 'T',
       }
       const submission = await this.$axios.$get(`${url}/submission/`, header)
       this.SubmissionId = submission[0]._id
@@ -226,65 +228,79 @@ export default {
       }
       this.submitted = !!this.link
     }
-    if (assignment.submissionDeadline <= new Date().toISOString().substr(0, 10)) {
+    if (
+      assignment.submissionDeadline <= new Date().toISOString().substr(0, 10)
+    ) {
       this.canReview = true
     }
     if (assignment.reviewDeadline <= new Date().toISOString().substr(0, 10)) {
       this.canViewFeedBack = true
     }
-    this.assignment.submissionDeadline = new Date(this.assignment.submissionDeadline).toLocaleString(['en-US'], { month: 'short', day: '2-digit', year: 'numeric' })
-    this.assignment.reviewDeadline = new Date(this.assignment.reviewDeadline).toLocaleString(['en-US'], { month: 'short', day: '2-digit', year: 'numeric' })
+    this.assignment.submissionDeadline = new Date(
+      this.assignment.submissionDeadline
+    ).toLocaleString(['en-US'], {
+      month: 'short',
+      day: '2-digit',
+      year: 'numeric',
+    })
+    this.assignment.reviewDeadline = new Date(
+      this.assignment.reviewDeadline
+    ).toLocaleString(['en-US'], {
+      month: 'short',
+      day: '2-digit',
+      year: 'numeric',
+    })
   },
   data: () => ({
     canReview: true,
     updateDialog: false,
-    canViewFeedBack : false,
-    SubmissionId : null ,
+    canViewFeedBack: false,
+    SubmissionId: null,
     submission: {},
     submitted: false,
     assignment: {},
     fab: false,
     deleteConfirm: false,
     file: null,
-    link: null
+    link: null,
   }),
   computed: {
-    teacher () {
+    teacher() {
       return this.$auth.user.data.teacher
-    }
+    },
   },
   methods: {
-    dialog () {
+    dialog() {
       this.deleteConfirm = true
     },
-    deleteAssignment () {
+    deleteAssignment() {
       this.$store.dispatch('assignmentStore/deleteAssignment', {
         token: this.$auth.getToken('local'),
         id: this.$route.params.assg,
         data: {
-          course: this.$route.params.id
-        }
+          course: this.$route.params.id,
+        },
       })
     },
-    submitAssignment () {
+    submitAssignment() {
       if (this.file) {
         this.$store.dispatch('submissionStore/createSubmission', {
           token: this.$auth.getToken('local'),
           data: {
             course: this.$route.params.id,
             assignment: this.$route.params.assg,
-            attachments: [this.file]
-          }
+            attachments: [this.file],
+          },
         })
       } else {
         this.$store.dispatch('authStore/snackbar', {
           show: true,
           color: 'red',
-          message: 'Please upload file to submit'
+          message: 'Please upload file to submit',
         })
       }
     },
-    updateSubmission () {
+    updateSubmission() {
       if (this.file) {
         this.$store.dispatch('submissionStore/updateSubmission', {
           token: this.$auth.getToken('local'),
@@ -292,29 +308,29 @@ export default {
           id: this.submission._id,
           data: {
             assignment: this.$route.params.assg,
-            attachments: [this.file]
-          }
+            attachments: [this.file],
+          },
         })
       } else {
         this.$store.dispatch('authStore/snackbar', {
           show: true,
           color: 'red',
-          message: 'Please upload file to submit'
+          message: 'Please upload file to submit',
         })
       }
     },
-    deleteSubmission () {
+    deleteSubmission() {
       this.$store.dispatch('submissionStore/deleteSubmission', {
         token: this.$auth.getToken('local'),
         course: this.$route.params.id,
         id: this.submission._id,
-        assignment: this.$route.params.assg
+        assignment: this.$route.params.assg,
       })
-    }
+    },
   },
   head: {
-    title : 'Assignment | Details '
-  }
+    title: 'Assignment | Details ',
+  },
 }
 </script>
 <style scoped>

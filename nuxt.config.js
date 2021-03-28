@@ -9,7 +9,7 @@ export default {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'server',
+  target: 'static',
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -112,4 +112,30 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {},
+  sitemap: {
+    hostname: 'https://peerio-xi.vercel.app/',
+    gzip: true,
+    trailingSlash: true,
+  },
+  build: {
+    extractCSS: {
+      ignoreOrder: true,
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue|js|scss)$/,
+            chunks: 'all',
+            enforce: true,
+          },
+        },
+      },
+    },
+  },
+  robots: {
+    UserAgent: '*',
+    Allow: '*',
+  },
 }
