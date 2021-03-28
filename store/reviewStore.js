@@ -27,7 +27,7 @@ export const actions = {
         commit('authStore/snackbar', {
           show: true,
           color: 'red',
-          message: err.message
+          message: "You have already reviewed this submission"
         }, { root: true })
       })
   }

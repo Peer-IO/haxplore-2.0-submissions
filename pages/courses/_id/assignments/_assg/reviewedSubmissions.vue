@@ -9,24 +9,67 @@
         v-model="switch1"
         inset
         color="white"
-        :label="switch1 ? 'Complted' : 'Inphase'"
+        :label="switch1 ? 'Completed' : 'Inphase'"
       />
     </v-toolbar>
-    <v-container>
-      <v-card v-for="(item,i) in reviews" :key="i">
+    <v-container v-if="!switch1">
+      <v-card v-for="(item,i) in in_phase_submissions" :key="i">
         <v-card-title>
-          madhava
+          {{ item.submitter.first_name }}
           <v-spacer />
-          {{ item.score }}
+          {{ item.avg_score }}
         </v-card-title>
-        <v-card-text>
-          <v-treeview
-            rounded
-            hoverable
-            activatable
-            :items="reviews"
-          />
-        </v-card-text>
+        <v-card-actions>
+          <div>Reviews</div>
+          <v-spacer />
+
+          <v-btn icon @click="view(item)">
+            <v-icon>
+              {{ item.show ? "mdi-chevron-up" : "mdi-chevron-down" }}
+            </v-icon>
+          </v-btn>
+        </v-card-actions>
+
+        <v-expand-transition>
+          <div v-show="item.show">
+            <v-data-table
+              :headers="headers"
+              :items="item.reviews"
+              :items-per-page="3"
+              class="elevation-1"
+            />
+          </div>
+        </v-expand-transition>
+      </v-card>
+    </v-container>
+    <v-container v-if="switch1">
+      <v-card v-for="(item,i) in completed_submissions" :key="i">
+        <v-card-title>
+          {{ item.submitter.first_name }}
+          <v-spacer />
+          {{ item.avg_score }}
+        </v-card-title>
+        <v-card-actions>
+          <div>Reviews</div>
+          <v-spacer />
+
+          <v-btn icon @click="view(item)">
+            <v-icon>
+              {{ item.show ? "mdi-chevron-up" : "mdi-chevron-down" }}
+            </v-icon>
+          </v-btn>
+        </v-card-actions>
+
+        <v-expand-transition>
+          <div v-show="item.show">
+            <v-data-table
+              :headers="headers"
+              :items="item.reviews"
+              :items-per-page="3"
+              class="elevation-1"
+            />
+          </div>
+        </v-expand-transition>
       </v-card>
     </v-container>
   </v-container>
@@ -47,45 +90,40 @@ export default {
       }
     }
 
-    const submissions = await this.$axios.$get(
-      'https://arcane-mountain-95630.herokuapp.com/submission/get-reviewed',
+    let InPhaseSubmissions = await this.$axios.$get(
+      'https://arcane-mountain-95630.herokuapp.com/submission/get-in-phase/',
       header
     )
-    this.submissions = submissions.submissions
+    let CompletedSubmissions = await this.$axios.$get(
+      'https://arcane-mountain-95630.herokuapp.com/submission/get-reviewed/',
+      header
+    )
+    CompletedSubmissions = CompletedSubmissions.submissions
+    InPhaseSubmissions = InPhaseSubmissions.map((e) => {
+      e.show = false
+      return e
+    })
+    CompletedSubmissions = CompletedSubmissions.map((e) => {
+      e.show = false
+      return e
+    })
+    this.in_phase_submissions = InPhaseSubmissions
+    this.completed_submissions = CompletedSubmissions
   },
   data: () => ({
-    submissions: [],
+    in_phase_submissions: [],
+    completed_submissions: [],
     switch1: true,
-    reviews: [
+    headers: [
       {
-        name: 'reviews',
-        score: '20',
-        id: 1,
-        children: [
-          {
-            id: 2,
-            name: 'review 1',
-            children: [
-              { id: 16, name: 'October : pdf' },
-              { id: 18, name: 'Tutorial : html' }
-            ]
-          },
-          {
-            id: 3,
-            name: 'review 2',
-            children: [
-              { id: 16, name: 'October : pdf' },
-              { id: 18, name: 'Tutorial : html' }]
-          },
-          {
-            id: 4,
-            name: 'review 3',
-            children: [
-              { id: 16, name: 'October : pdf' },
-              { id: 18, name: 'Tutorial : html' }]
-          }
-        ]
-      }
+        text: 'Reviewed by',
+        align: 'start',
+        sortable: true,
+        value: 'reviewer.first_name'
+      },
+      { text: 'Roll number', value: 'reviewer.roll_number' },
+      { text: 'Score', value: 'score' },
+      { text: 'Remarks', value: 'remark' }
     ]
   }),
 
@@ -93,6 +131,9 @@ export default {
   },
 
   methods: {
+    view (submission) {
+      submission.show = !submission.show
+    }
   }
 }
 </script>

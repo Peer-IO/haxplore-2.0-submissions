@@ -17,7 +17,6 @@
                     <v-card-text class="mt-12">
                       <h1
                         class="text-center display-2 white--text"
-                        style="opacity: 0.8"
                       >
                         Sign in
                       </h1>
@@ -27,7 +26,6 @@
                           fab
                           color="red"
                           outlined
-                          style="opacity: 0.8"
                           @click="google"
                         >
                           <v-icon large> mdi-google-plus </v-icon>
@@ -80,12 +78,14 @@
                     </div>
                   </v-col>
                   <v-col cols="12" md="4">
-                    <v-card-text class="white--text mt-12">
-                      <h1 class="text-center display-1">Hello, friends!</h1>
-                      <h3 class="text-center">Enter Your details</h3>
+                    <v-card-text class="black--text mt-6">
+                      <!-- <h1 class="text-center display-1">Hello, friends!</h1>
+                      <h3 class="text-center">Enter Your details</h3> -->
+                      <h1 class="text-center display-1">Welcome Back!</h1>
+                      <h3 class="text-center">Please Sign In to Continue</h3>
                     </v-card-text>
-                    <div class="text-center">
-                      <v-btn rounded outlined dark @click="step++">
+                    <div class="text-center mt-2">
+                      <v-btn @click="step++">
                         SIGN UP
                       </v-btn>
                     </div>
@@ -101,7 +101,7 @@
                       </h1>
 
                       <div class="text-center mt-4">
-                        <h4>Or register with</h4>
+                        <!-- <h4>Or register with</h4> -->
                         <v-btn
                           class="mx-2"
                           fab
@@ -218,12 +218,12 @@
                     </div>
                   </v-col>
                   <v-col cols="12" md="4">
-                    <v-card-text class="white--text mt-12">
-                      <h1 class="text-center display-1">Welcome Back!</h1>
-                      <h3 class="text-center">Please Sign Up to Continue</h3>
+                    <v-card-text class="white--text mt-0">
+                      <h1 class="text-center display-1">Get Started ! </h1>
+                      <h3 class="text-center">Enter Your details</h3>
                     </v-card-text>
                     <div class="text-center">
-                      <v-btn rounded outlined dark @click="step--">
+                      <v-btn @click="step--">
                         SIGN IN
                       </v-btn>
                     </div>
@@ -568,17 +568,19 @@ export default {
 </script>
 <style scoped>
 .sin {
-  background-image: url('https://images.pexels.com/photos/735911/pexels-photo-735911.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+  /* background-image: url('https://images.pexels.com/photos/735911/pexels-photo-735911.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'); */
+  background-image: url('https://www.deccanherald.com/sites/dh/files/articleimages/2020/06/05/iStock-869155894-1591301228.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: left;
   background-repeat: no-repeat;
-  opacity: 0.8;
+  /* opacity: 0.8; */
 }
 .cin {
-  background-image: url('https://images.pexels.com/photos/943096/pexels-photo-943096.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+  /* background-image: url('https://images.pexels.com/photos/943096/pexels-photo-943096.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'); */
+  background-image: url('https://elearningindustry.com/wp-content/uploads/2015/05/Online-Learning-Teaching-Techniques.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: left;
   background-repeat: no-repeat;
-  opacity: 0.7;
+  /* opacity: 0.7; */
 }
 </style>

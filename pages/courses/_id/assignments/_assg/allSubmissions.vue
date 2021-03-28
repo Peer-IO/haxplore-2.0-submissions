@@ -30,7 +30,7 @@
               {{ item.submitter.first_name }}
             </td>
             <td v-if="teacher">
-              {{ new Date(item.updatedAt).toLocaleString(['en-US'], { month: 'short', day: '2-digit', year: 'numeric' }) }}
+              {{ new Date(item.createdAt).toLocaleString(['en-US'], { month: 'short', day: '2-digit', year: 'numeric' }) }}
             </td>
             <td>
               <v-chip
@@ -79,11 +79,20 @@ export default {
         header
       )
       this.submissions = submissions
+      console.log(submissions)
     } else {
       const submissions = await this.$axios.$get(
         'https://arcane-mountain-95630.herokuapp.com/submission/get-in-phase',
         header
       )
+      for( var i = 0; i < submissions.length; i++){ 
+    
+        if ( submissions[i].submitter._id === this.$auth.user.data._id) { 
+    
+            submissions.splice(i, 1); 
+        }
+    
+    }
       this.submissions = submissions
     }
   },

@@ -29,6 +29,11 @@
       "title": "The teacher has a complete overview",
       "body": "You get the complete overview of everything that is happening in the assignment.",
       "color": "teal"
+    },
+    {
+      "title": "Student gets the Feedback",
+      "body": "Student gets the commets given by other students for his submitted work without knowing who has given it",
+      "color": "pink"
     }
   ]
 }

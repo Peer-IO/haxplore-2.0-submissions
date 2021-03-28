@@ -81,7 +81,7 @@
           class="course-list my-4 mx-3"
         >
           <v-card class="mx-auto" max-width="344" elevation="20" ripple rounded>
-            <v-tooltip bottom>
+            <v-tooltip bottom v-if="isTeacher">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   class="mx-1"

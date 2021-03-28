@@ -1,5 +1,5 @@
 {
-  "name": "peerio",
+  "name": "Peer-IO",
   "version": "2.0.0",
   "private": true,
   "scripts": {
@@ -19,12 +19,17 @@
   },
   "devDependencies": {
     "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/tailwindcss": "^4.0.2",
     "@nuxtjs/vuetify": "^1.11.3",
+    "@tailwindcss/postcss7-compat": "^2.0.4",
+    "autoprefixer": "^9",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "prettier": "^2.2.1"
+    "postcss": "^7",
+    "prettier": "^2.2.1",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   }
 }

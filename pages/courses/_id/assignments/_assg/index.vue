@@ -111,8 +111,11 @@
         >
           Delete
         </v-btn>
-        <v-btn class="ma-2" color="white black--text" :to="this.$route.fullPath + '/allSubmissions'">
+        <v-btn v-if="!canViewFeedBack" class="ma-2" color="white black--text" :to="this.$route.fullPath + '/allSubmissions'">
           Start Reviewing
+        </v-btn>
+        <v-btn v-else class="ma-2" color="white black--text" :to="this.$route.fullPath + '/submission/' + this.SubmissionId +'/feedback'">
+          View FeedBack
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -216,6 +219,7 @@ export default {
         userSpecific: 'T'
       }
       const submission = await this.$axios.$get(`${url}/submission/`, header)
+      this.SubmissionId = submission[0]._id
       this.submission = submission[0]
       if (submission.length > 0) {
         this.link = submission[0].attachments[0]
@@ -225,12 +229,17 @@ export default {
     if (assignment.submissionDeadline <= new Date().toISOString().substr(0, 10)) {
       this.canReview = true
     }
+    if (assignment.reviewDeadline <= new Date().toISOString().substr(0, 10)) {
+      this.canViewFeedBack = true
+    }
     this.assignment.submissionDeadline = new Date(this.assignment.submissionDeadline).toLocaleString(['en-US'], { month: 'short', day: '2-digit', year: 'numeric' })
     this.assignment.reviewDeadline = new Date(this.assignment.reviewDeadline).toLocaleString(['en-US'], { month: 'short', day: '2-digit', year: 'numeric' })
   },
   data: () => ({
     canReview: true,
     updateDialog: false,
+    canViewFeedBack : false,
+    SubmissionId : null ,
     submission: {},
     submitted: false,
     assignment: {},
