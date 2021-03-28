@@ -213,6 +213,9 @@ export default {
         })
       }
     }
+  },
+  head: {
+    title : 'Course | Create'
   }
 }
 </script>

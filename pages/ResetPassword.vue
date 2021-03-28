@@ -95,6 +95,9 @@ export default {
         message: msg
       })
     }
+  },
+  head: {
+    title : 'ResetPassword'
   }
 }
 </script>

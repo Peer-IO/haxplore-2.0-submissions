@@ -35,9 +35,7 @@
                       v-bind="attrs"
                       v-on="{ ...tooltip, ...menu }"
                     >
-                      <v-icon large>
-                        mdi-dots-vertical
-                      </v-icon>
+                      <v-icon large> mdi-dots-vertical </v-icon>
                     </v-btn>
                   </template>
                   <span>More Info</span>
@@ -113,9 +111,13 @@
         </div>
       </v-col>
     </v-row>
-    <v-row v-for="(assg, i) in course.assignments" :key="i" style="margin-top: 4vh">
+    <v-row
+      v-for="(assg, i) in course.assignments"
+      :key="i"
+      style="margin-top: 4vh"
+    >
       <v-col cols="12" lg="10" md="11" style="margin: auto; padding: 0">
-        <v-card :to="$route.fullPath+'/assignments/'+assg._id">
+        <v-card :to="$route.fullPath + '/assignments/' + assg._id">
           <v-row>
             <v-col cols="1" class="hidden-xs-only">
               <v-img
@@ -152,12 +154,8 @@
     >
       <template v-slot:activator>
         <v-btn v-model="fab" color="blue darken-2" dark fab>
-          <v-icon v-if="fab">
-            mdi-close
-          </v-icon>
-          <v-icon v-else>
-            mdi-account-circle
-          </v-icon>
+          <v-icon v-if="fab"> mdi-close </v-icon>
+          <v-icon v-else> mdi-account-circle </v-icon>
         </v-btn>
       </template>
       <v-btn
@@ -184,9 +182,7 @@
     </v-speed-dial>
     <v-dialog v-model="deleteConfirm" max-width="290">
       <v-card>
-        <v-card-title class="headline">
-          Confirm
-        </v-card-title>
+        <v-card-title class="headline"> Confirm </v-card-title>
         <v-card-text>
           Are you sure to delete this course ? All the assignments related to
           this course will also be deleted automatically .
@@ -207,17 +203,17 @@
 <script>
 export default {
   middleware: ['auth'],
-  async fetch () {
+  async fetch() {
     const header = {
       headers: {
-        Authorization: this.$auth.getToken('local')
-      }
+        Authorization: this.$auth.getToken('local'),
+      },
     }
     const course = await this.$axios.$get(
       `https://arcane-mountain-95630.herokuapp.com/teacher/course/${this.$route.params.id}`,
       header
     )
-    // console.log(course)
+    console.log(course)
     this.course = course
     this.instructor = course.instructor
   },
@@ -226,29 +222,31 @@ export default {
     fab: false,
     course: {},
     instructor: {},
-    assignments: [
-    ],
+    assignments: [],
     buttonMessageT: 'Delete Course',
-    buttonMessageS: 'Leave Course'
+    buttonMessageS: 'Leave Course',
   }),
   computed: {
-    noAssg () {
+    noAssg() {
       return this.assignments.length
     },
-    teacher () {
+    teacher() {
       return this.$auth.user.data.teacher
-    }
+    },
   },
   methods: {
-    dialog () {
+    dialog() {
       this.deleteConfirm = true
     },
-    deleteCourse () {
+    deleteCourse() {
       this.$store.dispatch('teacherStore/deleteCourse', {
         token: this.$auth.getToken('local'),
-        id: this.$route.params.id
+        id: this.$route.params.id,
       })
     }
+  },
+  head: {
+    title : 'Course | Details '
   }
 }
 </script>

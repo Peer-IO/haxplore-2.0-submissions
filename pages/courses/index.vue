@@ -10,7 +10,7 @@
           <nuxt-link
             v-if="isTeacher"
             to="/createcourse"
-            style="color: inherit;text-decoration: none;"
+            style="color: inherit; text-decoration: none"
           >
             <v-btn
               class="white black--text"
@@ -23,11 +23,7 @@
             </v-btn>
           </nuxt-link>
 
-          <v-dialog
-            v-else
-            v-model="dialog"
-            max-width="290"
-          >
+          <v-dialog v-else v-model="dialog" max-width="290">
             <template v-slot:activator="scope">
               <v-btn
                 class="white black--text"
@@ -40,9 +36,7 @@
               </v-btn>
             </template>
             <v-card>
-              <v-card-title class="headline">
-                Enter Code
-              </v-card-title>
+              <v-card-title class="headline"> Enter Code </v-card-title>
               <v-divider class="my-3" />
               <v-card-text>
                 <v-text-field
@@ -56,18 +50,12 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
-                <v-btn
-                  color="primary"
-                  text
-                  @click="joinCourse"
-                >
-                  Join
-                </v-btn>
+                <v-btn color="primary" text @click="joinCourse"> Join </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
         </template>
-        <span>{{ isTeacher ? "Add a new course": "Join course" }}</span>
+        <span>{{ isTeacher ? 'Add a new course' : 'Join course' }}</span>
       </v-tooltip>
     </v-toolbar>
     <v-container>
@@ -93,19 +81,17 @@
                   dark
                   color="black"
                   v-bind="attrs"
-                  :to="'/courses/'+course._id+'/edit'"
+                  :to="'/courses/' + course._id + '/edit'"
                   v-on="on"
                 >
-                  <v-icon dark>
-                    mdi-pencil
-                  </v-icon>
+                  <v-icon dark> mdi-pencil </v-icon>
                 </v-btn>
               </template>
               <span>edit course</span>
             </v-tooltip>
             <nuxt-link
               :to="'/courses/' + course._id"
-              style="color: inherit;text-decoration: none;"
+              style="color: inherit; text-decoration: none"
             >
               <v-img
                 src="https://d3gthpli891tsj.cloudfront.net/wp-content/uploads/2019/01/22063215/GATE-Crash-Course.jpg"
@@ -129,19 +115,19 @@
 
               <v-btn icon @click="view(course)">
                 <v-icon>
-                  {{ course.show ? "mdi-chevron-up" : "mdi-chevron-down" }}
+                  {{ course.show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
                 </v-icon>
               </v-btn>
             </v-card-actions>
 
             <v-expand-transition>
               <div v-show="course.show">
-                <v-data-table
+                <!-- <v-data-table
                   :headers="headers"
                   :items="course.assignments"
                   :items-per-page="3"
                   class="elevation-1"
-                />
+                /> -->
               </div>
             </v-expand-transition>
           </v-card>
@@ -154,7 +140,7 @@
 <script>
 export default {
   middleware: ['auth'],
-  async fetch () {
+  async fetch() {
     let url = 'https://arcane-mountain-95630.herokuapp.com/'
     if (this.$auth.user.data.teacher) {
       url += 'teacher/course/'
@@ -169,10 +155,8 @@ export default {
       const courses = await this.$axios.$get(url)
       this.courses = courses.courses
     }
-
-    // console.log(courses)
   },
-  data () {
+  data() {
     return {
       // headers for  assignments table
       headers: [
@@ -180,43 +164,49 @@ export default {
           text: 'Name',
           align: 'start',
           sortable: true,
-          value: 'title'
+          value: 'title',
         },
         { text: 'Last Date', value: 'submissionDeadline' },
-        { text: 'No of submissions', value: 'number_of_submissions' }
+        { text: 'No of submissions', value: 'number_of_submissions' },
       ],
       courses: [],
       isTeacher: this.$auth.user.data.teacher,
       rules: {
-        minLength: value => !!value || 'Required!'
+        minLength: (value) => !!value || 'Required!',
       },
       code: '',
-      dialog: false
+      dialog: false,
     }
   },
   methods: {
     //  switch expandable
-    view (course) {
+    view(course) {
       const assg = course.assignments
       assg.forEach((a) => {
-        a.submissionDeadline = new Date(a.submissionDeadline).toLocaleString(['en-US'], { month: 'short', day: '2-digit', year: 'numeric' })
-        a.reviewDeadline = new Date(a.reviewDeadline).toLocaleString(['en-US'], { month: 'short', day: '2-digit', year: 'numeric' })
+        a.submissionDeadline = new Date(a.submissionDeadline).toLocaleString(
+          ['en-US'],
+          { month: 'short', day: '2-digit', year: 'numeric' }
+        )
+        a.reviewDeadline = new Date(a.reviewDeadline).toLocaleString(
+          ['en-US'],
+          { month: 'short', day: '2-digit', year: 'numeric' }
+        )
       })
       course.show = !course.show
     },
-    joinCourse () {
+    joinCourse() {
       const payload = {
         token: this.$auth.getToken('local'),
         data: {
-          classCode: this.code
-        }
+          classCode: this.code,
+        },
       }
       this.$store.dispatch('courseStore/joinCourse', payload)
-    }
+    },
   },
   head: {
-    title: 'Home'
-  }
+    title: 'Home',
+  },
 }
 </script>
 

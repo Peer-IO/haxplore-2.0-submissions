@@ -220,6 +220,9 @@ export default {
         })
       }
     }
+  },
+  head: {
+    title : 'Course | Edit '
   }
 }
 </script>

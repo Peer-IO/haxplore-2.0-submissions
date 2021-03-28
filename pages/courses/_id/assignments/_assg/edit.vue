@@ -234,6 +234,9 @@ export default {
       this.links.splice(this.links.indexOf(item), 1)
       this.links = [...this.links]
     }
+  },
+  head: {
+    title : 'Assignment | Edit '
   }
 }
 </script>

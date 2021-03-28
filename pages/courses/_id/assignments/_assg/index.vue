@@ -311,6 +311,9 @@ export default {
         assignment: this.$route.params.assg
       })
     }
+  },
+  head: {
+    title : 'Assignment | Details '
   }
 }
 </script>

@@ -15,11 +15,7 @@
                 <v-row>
                   <v-col cols="12" md="8" class="accent">
                     <v-card-text class="mt-12">
-                      <h1
-                        class="text-center display-2 white--text"
-                      >
-                        Sign in
-                      </h1>
+                      <h1 class="text-center display-2 white--text">Sign in</h1>
                       <div class="text-center mt-4">
                         <v-btn
                           class="mx-2"
@@ -73,7 +69,7 @@
                         </v-btn>
                       </div>
                     </v-card-text>
-                    <div class="text-center mt-3">
+                    <div class="text-center tw-my-2">
                       <v-btn rounded dark @click="ValidSignin"> SIGN IN </v-btn>
                     </div>
                   </v-col>
@@ -85,9 +81,7 @@
                       <h3 class="text-center">Please Sign In to Continue</h3>
                     </v-card-text>
                     <div class="text-center mt-2">
-                      <v-btn @click="step++">
-                        SIGN UP
-                      </v-btn>
+                      <v-btn @click="step++"> SIGN UP </v-btn>
                     </div>
                   </v-col>
                 </v-row>
@@ -166,7 +160,7 @@
                           name="Rollnumber"
                           prepend-icon="mdi-account"
                           type="text"
-                          :rules="[rules.rollRule, rules.minlength]"
+                          :rules="[rules.rollRule,rules.minlength]"
                           :maxlength="11"
                           required
                           color="primary"
@@ -211,19 +205,19 @@
                         />
                       </v-form>
                     </v-card-text>
-                    <div class="text-center mt-3">
+                    <div class="text-center tw-my-2">
                       <v-btn rounded dark @click="ValidSignup">
                         CREATE ACCOUNT
                       </v-btn>
                     </div>
                   </v-col>
                   <v-col cols="12" md="4">
-                    <v-card-text class="white--text mt-0">
-                      <h1 class="text-center display-1">Get Started ! </h1>
+                    <v-card-text class="white--text mt-12">
+                      <h1 class="text-center display-1">Get Started !</h1>
                       <h3 class="text-center">Enter Your details</h3>
                     </v-card-text>
-                    <div class="text-center">
-                      <v-btn @click="step--">
+                    <div class="text-center tw-mb-4">
+                      <v-btn rounded outlined dark @click="step--">
                         SIGN IN
                       </v-btn>
                     </div>
@@ -532,9 +526,6 @@ export default {
         })
         .then(() => {
           this.loading = false
-          this.$store.dispatch('teacherStore/getCourses', {
-            token: this.$auth.getToken('local'),
-          })
         })
         .catch((err) => {
           this.loading = false
@@ -564,6 +555,9 @@ export default {
       this.$router.push('/login')
     },
   },
+  head: {
+    title : 'Login'
+  }
 }
 </script>
 <style scoped>

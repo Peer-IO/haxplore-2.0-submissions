@@ -310,6 +310,9 @@ export default {
       this.file = null
       this.dialogImg = false
     }
+  },
+  head: {
+    title : 'Profile'
   }
 }
 </script>

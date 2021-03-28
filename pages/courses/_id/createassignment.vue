@@ -186,6 +186,9 @@ export default {
         }
       })
     }
+  },
+  head: {
+    title : 'Assignment | Create '
   }
 }
 </script>

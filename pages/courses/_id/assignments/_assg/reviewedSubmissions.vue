@@ -134,6 +134,9 @@ export default {
     view (submission) {
       submission.show = !submission.show
     }
+  },
+  head: {
+    title : 'All Reviews'
   }
 }
 </script>

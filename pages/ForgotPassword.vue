@@ -67,6 +67,9 @@ export default {
         message: msg
       })
     }
+  },
+  head: {
+    title : 'ForgotPassowrd'
   }
 }
 </script>

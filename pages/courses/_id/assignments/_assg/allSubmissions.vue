@@ -115,6 +115,9 @@ export default {
       const formatedDate = new Date(date).toLocaleString(['en-US'], { month: 'short', day: '2-digit', year: 'numeric' })
       return formatedDate
     }
+  },
+  head: {
+    title : 'All Submissions '
   }
 }
 </script>

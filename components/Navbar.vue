@@ -82,8 +82,8 @@ export default {
       links: [
         { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/courses' },
         { title: 'Profile', icon: 'mdi-account', route: '/profile' },
-        { title: 'Assignments', icon: 'mdi-equal-box', route: '/assignments' },
-      ],
+        // { title: 'Assignments', icon: 'mdi-equal-box', route: '/assignments' }
+      ]
     }
   },
   computed: {

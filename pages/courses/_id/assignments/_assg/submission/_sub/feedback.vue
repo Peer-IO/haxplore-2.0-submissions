@@ -14,60 +14,54 @@
           Final Score : {{ avg_score }}
         </v-card-title>
         <v-simple-table>
-            <template v-slot:default>
-                <thead>
-                <tr>
-                    <th class="text-left">
-                    Review No
-                    </th>
-                    <th class="text-left">
-                    Score given
-                    </th>
-                    <th class="text-left">
-                    Remarks 
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr
-                    v-for="(item,i) in reviews"
-                    :key="item._id"
-                >
-                    <td>{{ i + 1  }}</td>
-                    <td>{{ item.score }}</td>
-                    <td>{{ item.remark }}</td>
-                </tr>
-                </tbody>
-            </template>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-left">Review No</th>
+                <th class="text-left">Score given</th>
+                <th class="text-left">Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, i) in reviews" :key="item._id">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.score }}</td>
+                <td>{{ item.remark }}</td>
+              </tr>
+            </tbody>
+          </template>
         </v-simple-table>
       </v-card>
     </v-container>
   </v-container>
 </template>
 <script>
-
 export default {
   middleware: ['auth'],
-  async fetch () {
+  async fetch() {
     const header = {
       headers: {
-        Authorization: this.$auth.getToken('local')
-      }
+        Authorization: this.$auth.getToken('local'),
+      },
     }
 
     let submission = await this.$axios.$get(
       `https://arcane-mountain-95630.herokuapp.com/submission/${this.$route.params.sub}`,
       header
     )
-    
-    this.name = submission.submitter.first_name +' ' +  submission.submitter.last_name
-    this.avg_score = submission.avg_score 
+
+    this.name =
+      submission.submitter.first_name + ' ' + submission.submitter.last_name
+    this.avg_score = submission.avg_score.toString(2)
     this.reviews = submission.reviews
   },
+  head: {
+    title : 'FeedBack'
+  },
   data: () => ({
-    name : null ,
-    avg_score : 0 ,
-    reviews : [],
+    name: null,
+    avg_score: 0,
+    reviews: [],
   }),
 }
 </script>
